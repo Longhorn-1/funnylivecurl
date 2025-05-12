@@ -6,11 +6,23 @@ import sys
 import platform
 import shutil
 
-# Terminal colors
-RED = "\033[91m"
-CYAN = "\033[96m"
-YELLOW = "\033[93m"
-RESET = "\033[0m"
+# Check if ANSI colors should be used
+def detect_color_support():
+    if os.name != "nt":
+        return True  # Unix terminals usually support ANSI
+    if "WT_SESSION" in os.environ or "TERM" in os.environ:
+        return True  # Windows Terminal or ANSI-aware
+    return False  # Classic CMD — no color
+
+USE_COLOR = detect_color_support()
+
+# Define ANSI colors
+RED = "\033[91m" if USE_COLOR else ""
+CYAN = "\033[96m" if USE_COLOR else ""
+YELLOW = "\033[93m" if USE_COLOR else ""
+WHITE = "\033[97m" if USE_COLOR else ""
+BLUE_BG = "\033[44m" if USE_COLOR else ""
+RESET = "\033[0m" if USE_COLOR else ""
 
 def spooky_print(msg, delay=0.04, color=RED):
     for char in msg:
@@ -20,7 +32,7 @@ def spooky_print(msg, delay=0.04, color=RED):
 
 def fake_encrypt_files():
     for i in range(1, 11):
-        spooky_print(f"[{i}/10] Encrypting file: C:/system/core/boot_{i}.dll", delay=0.01, color=CYAN)
+        spooky_print(f"[{i}/10] Encrypting file: /system/core/boot_{i}.dll", delay=0.01, color=CYAN)
         time.sleep(0.1)
 
 def countdown(seconds):
@@ -45,16 +57,10 @@ def skull_art():
 """
 
 def fake_crash_screen():
-    cols = shutil.get_terminal_size().columns
+    cols = shutil.get_terminal_size((80, 20)).columns
     os_name = platform.system()
 
-    # Clear screen
     os.system('cls' if os_name == 'Windows' else 'clear')
-
-    # Blue screen text
-    blue_bg = "\033[44m"
-    white_fg = "\033[97m"
-    reset = "\033[0m"
 
     lines = [
         "",
@@ -91,12 +97,12 @@ def fake_crash_screen():
         "",
     ]
 
-    print(blue_bg + white_fg)
+    print(BLUE_BG + WHITE)
     for line in lines:
         print(line.center(cols))
-    print(reset)
+    print(RESET)
 
-# Begin prank
+# Begin the horror
 spooky_print("You regret this... hacking into your system...")
 time.sleep(1)
 spooky_print("Installing virus.scary.exe...")
@@ -105,7 +111,6 @@ spooky_print("Connecting to C2 server at 13.37.66.6... Success.")
 time.sleep(1)
 spooky_print("Downloading payload...")
 
-# Download the scary video
 video_url = "https://cdn.discordapp.com/attachments/1212496951103324220/1371164541236416614/202505111923.mp4?ex=682223fd&is=6820d27d&hm=7161de71945918344db3cc7a932ab620667fea7587c9222ab01f0ea270b94a5c&"
 video_name = "virus.scary.mp4"
 
@@ -123,27 +128,22 @@ time.sleep(1)
 spooky_print("Executing virus.scary.exe...")
 time.sleep(1)
 
-# Fake file encryption
+# Fake stuff
 fake_encrypt_files()
-
-# Scary skull
 print(RED + skull_art() + RESET)
 spooky_print("CRITICAL ERROR: kernel32.dll not found", color=RED)
 time.sleep(1)
 spooky_print("Attempting recovery... FAILED.", color=YELLOW)
 time.sleep(1)
-
 spooky_print("System will reboot in:", color=RED)
 countdown(5)
 
-# Terminal beep (optional)
+# Terminal beep
 print('\a')
 
-# FAKE CRASH SCREEN
+# Final horror: Fake BSOD
 fake_crash_screen()
-
-# Pause before playing video
 time.sleep(5)
 
-# Open video
+# Play scary video
 webbrowser.open(video_name)
