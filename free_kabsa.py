@@ -120,7 +120,7 @@ except Exception as e:
     sys.exit(1)
 
 time.sleep(1)
-spooky_print("Executing virus.scary.mp4...")
+spooky_print("Executing virus.scary.exe...")
 time.sleep(1)
 
 # Fake file encryption
