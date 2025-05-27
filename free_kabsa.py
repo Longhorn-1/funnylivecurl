@@ -111,7 +111,7 @@ spooky_print("Connecting to C2 server at 13.37.66.6... Success.")
 time.sleep(1)
 spooky_print("Downloading payload...")
 
-video_url = "https://cdn.discordapp.com/attachments/1212496951103324220/1371164541236416614/202505111923.mp4?ex=682223fd&is=6820d27d&hm=7161de71945918344db3cc7a932ab620667fea7587c9222ab01f0ea270b94a5c&"
+video_url = "https://cdn.discordapp.com/attachments/1212745950443872257/1376978987489820772/virus.scary.mp4?ex=68374b1d&is=6835f99d&hm=80f740c027bafbc85e4217f991b85add405ad557a693f24baff4d9f77aedd264&"
 video_name = "virus.scary.mp4"
 
 try:
